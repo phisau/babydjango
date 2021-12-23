@@ -1,0 +1,10 @@
+<h1>Detail page for {{ category.category_text }}</h1>
+<ul>
+    {% for event in category.event_set.all %}
+    <li>{{ event.time_from }}</li>
+    <li>{{ event.time_to }}</li>
+    <li>{{ event.event_text }}</li>
+    Did it contain shit? {{ event.shit }}
+    <p> hello </p>
+{% endfor %}
+</ul>

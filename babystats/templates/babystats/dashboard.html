@@ -1,0 +1,21 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'babystats/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'babystats/pony.css' %}">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3pro.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue.css">
+<h1> Baby Pony Track </h1>
+
+{% if latest_category_list %}
+    <ul>
+    {% for category in latest_category_list %}
+    
+
+    <form action="{% url 'babystats:create_new' category.id  %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="{{ category.category_text }}">
+    </form>
+{% endfor %}
+    </ul>
+{% else %}
+    <p>No categories are configured, yet. Please go to the admin page and create your categories, which you want to trace.</p>
+{% endif %}

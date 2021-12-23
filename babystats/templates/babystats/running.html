@@ -1,0 +1,47 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'babystats/pony.css' %}">
+
+{% if category %}
+    <a href="/babystats/{{ category.id }}/">{{ category.category_text }}</a></li>
+    
+
+<form action="{% url 'babystats:saveme' category.id event.id %}" method="post">
+{% csrf_token %}
+<fieldset>
+
+    <legend><h1> {{ category.category_text }} </h1></legend>
+    <fieldset>
+        <input type="datetime-local" name="event_from" id="event.item_from" value="{{ event.time_from }}">
+        <label for="event_from">Current Start Time {{ event.time_from }}</label><br>
+
+        <form method="POST">
+            {% csrf_token %}
+            <input type="button" onclick="alert" value="Now">
+        </form>
+
+    </fieldset>
+<fieldset>
+    <legend><h1>Time End </h1></legend>
+        <input type="datetime-local" name="event_to" id="event.item_to" value="{{ event.time_to }}">
+        <label for="event_to">Current Start Time {{ event.time_to }}</label><br>
+</fieldset>
+
+<fieldset>
+    <legend><h1>Mood</h1></legend>
+        <input type="Integer" name="mood" id="event.mood" value="{{ event.mood}}">
+        <label for="mood">Current Start Time {{ event.mood }}</label><br>
+</fieldset>
+
+
+<input type="submit" name="action" value="Change Settings">
+<input type="submit" name="action" value="End">
+</form>
+
+
+
+    </ul>
+{% else %}
+    <p>No categories are configured, yet. Please go to the admin page and create your categories, which you want to trace.</p>
+{% endif %}
+

@@ -1,0 +1,24 @@
+<h1>Detail page for {{ category.category_text }}</h1>
+<ul>
+{% for event in category.event_set.all %}
+    <li>{{ event.time_from }}</li>
+    <li>{{ event.time_to }}</li>
+    <li>{{ event.event_text }}</li>
+    Did it contain shit? {{ event.shit }}
+    <p> hello </p>
+{% endfor %}
+</ul>
+
+
+<form action="{% url 'babystats:neu' %}" method="post">
+{% csrf_token %}
+<fieldset>
+    <legend><h1>{{ category.category_text }}</h1></legend>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    <input type="radio" name="shit" id="shit" value="{{ category.event_set.shit }}">
+    <label for="shit {{ forloop.counter }}">shit</label><br>
+    <input type="mood" name="mood" id="mood" value="{{ category.event_set.mood }}">
+    <label for="shit ">mood</label><br>
+</fieldset>
+<input type="submit" value="Vote">
+</form>

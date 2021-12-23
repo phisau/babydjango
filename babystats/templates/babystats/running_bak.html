@@ -1,0 +1,59 @@
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+
+<p> homeland park event going on</p>
+
+<p> Current settings:</p>
+
+<li> Event ID: {{ event.id}}</li>
+<li> Time start: {{ event.from }}</li>
+<li> Time to: {{ event.to}}</li>
+<li> Mood: {{ event.mood }}</li>
+<li> Shit: {{ event.shit }}</li>
+
+
+{% if category %}
+    <ul>
+    <li><a href="/babystats/{{ category.id }}/">{{ category.category_text }}</a></li>
+    
+
+<form action="{% url 'babystats:running' category.id event.id %}" method="post">
+{% csrf_token %}
+<fieldset>
+    <legend><h1>Time Start </h1></legend>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        <input type="datetime-local" name="event_from" id="event.from" value="{{ event.from }}">
+        <label for="event">Current Start Time {{ event.from_show }}</label><br>
+</fieldset>
+
+<fieldset>
+    <legend><h1>Time End</h1></legend>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        <input type="datetime-local" name="event_to" id="event.to" value="{{ event.to }}">
+        <label for="event2">Current End Time {{ event.to_show }}</label><br>
+</fieldset>
+
+
+<fieldset>
+    <legend><h1>Mood</h1></legend>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        <input type="int" name="event_mood" id="event" value="{{ event.mood }}">
+        <label for="event3">Current Mood: {{ event.mood }}</label><br>
+</fieldset>
+
+<fieldset>
+    <legend><h1>Shit</h1></legend>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        <input type="radio" name="event_shit" id="event" value="{{ event.shit }}">
+        <label for="event4"> shit {{ event.mood }}</label><br>
+</fieldset>
+
+
+<input type="submit" value="Change Settings">
+<input type="submit" value="Change Time From">
+</form>
+
+    </ul>
+{% else %}
+    <p>No categories are configured, yet. Please go to the admin page and create your categories, which you want to trace.</p>
+{% endif %}
